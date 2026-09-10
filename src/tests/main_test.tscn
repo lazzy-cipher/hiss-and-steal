@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://8amusei1cug0" path="res://src/tests/tile_maps.gd" id="3_ch5kc"]
 [ext_resource type="Texture2D" uid="uid://eclrcdc4u3jx" path="res://assets/images/kenney_micro-roguelike/Tilemap/colored_tilemap_packed.png" id="4_72ufq"]
 [ext_resource type="Script" uid="uid://ljuycjkuaihn" path="res://src/tests/camera_2d.gd" id="6_iusc2"]
+[ext_resource type="PackedScene" uid="uid://b0nkbgtbnccwc" path="res://src/ui.tscn" id="7_8ydw5"]
 
 [node name="MainTest" type="Node2D" unique_id=1603652801]
 texture_filter = 1
@@ -54,8 +55,12 @@ tile_set = ExtResource("2_70236")
 unique_name_in_owner = true
 
 [node name="PlayerSpawn" type="Sprite2D" parent="EntitySpawnPositions" unique_id=1673046555]
-position = Vector2(147, 171)
+position = Vector2(233, 162)
 texture = ExtResource("4_72ufq")
 hframes = 16
 vframes = 10
 frame = 20
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1235257280]
+
+[node name="UI" parent="CanvasLayer" unique_id=629128274 instance=ExtResource("7_8ydw5")]
