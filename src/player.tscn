@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dy01b51wqfeie"]
+
+[ext_resource type="Script" uid="uid://dc8l8523jieq4" path="res://src/player.gd" id="1_3vyb7"]
+
+[node name="Player" type="Node" unique_id=48821969]
+script = ExtResource("1_3vyb7")
+_walls_tilemap_path = null
+_entities_tilemap_path = null
