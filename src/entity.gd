@@ -16,7 +16,7 @@ enum SPRITE {
 	FIRE,
 }
 
-var sprite_coords := {
+static var sprite_coords := {
 	SPRITE.PLACEHOLDER: Vector2i(1, 8),
 	SPRITE.SNAKE: Vector2i(4, 1),
 	SPRITE.CRAB: Vector2i(12, 0),
@@ -28,9 +28,10 @@ var sprite_coords := {
 }
 
 @export var sprite: SPRITE
-@export_node_path("Node2D") var _spawn_position: NodePath
-@export_node_path("TileMapLayer") var _walls_tilemap_path: NodePath
-@export_node_path("TileMapLayer") var _entities_tilemap_path: NodePath
+@export var entity_name := "Unknown Entity"
+@export_node_path("Node2D") var spawn_position: NodePath
+@export_node_path("TileMapLayer") var walls_tilemap_path: NodePath
+@export_node_path("TileMapLayer") var entities_tilemap_path: NodePath
 
 var _map_position: Vector2i
 
@@ -45,28 +46,34 @@ func _ready() -> void:
 
 
 func _setup_tilemaps() -> void:
-	assert(not _walls_tilemap_path.is_empty())
-	assert(not _entities_tilemap_path.is_empty())
+	assert(not walls_tilemap_path.is_empty())
+	assert(not entities_tilemap_path.is_empty())
 
-	_walls_tilemap = get_node(_walls_tilemap_path)
-	_entities_tilemap = get_node(_entities_tilemap_path)
+	_walls_tilemap = get_node(walls_tilemap_path)
+	_entities_tilemap = get_node(entities_tilemap_path)
 
 	assert(is_instance_valid(_walls_tilemap))
 	assert(is_instance_valid(_entities_tilemap))
 
 
 func _spawn() -> void:
-	assert(not _spawn_position.is_empty())
+	assert(not spawn_position.is_empty())
 	assert(is_instance_valid(_entities_tilemap),
 		"invalid entity tilemap, call _setup_tilemaps() before calling _spawn()")
 
-	var spawn_node_pos: Node2D = get_node(_spawn_position)
+	var spawn_node_pos: Node2D = get_node(spawn_position)
 	assert(is_instance_valid(spawn_node_pos))
 	var local_pos := _entities_tilemap.to_local(spawn_node_pos.global_position)
-	var position := _entities_tilemap.local_to_map(local_pos)
+	var map_pos := _entities_tilemap.local_to_map(local_pos)
 
-	assert(set_map_position(position), "unable to spawn")
+	_map_position = map_pos # hack to disable sliding
+	var successfully_spawned := set_map_position(map_pos)
 
+	assert(successfully_spawned, "unable to spawn")
+
+
+func get_sprite_id() -> Vector2i:
+	return sprite_coords[sprite]
 
 
 func get_map_position() -> Vector2i:

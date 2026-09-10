@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b0nkbgtbnccwc"]
+
+[ext_resource type="Theme" uid="uid://bu21qjqh6rb1l" path="res://resources/ui_theme.tres" id="1_qemve"]
+[ext_resource type="Script" uid="uid://bn38tr7qpl4in" path="res://src/ui/ui.gd" id="2_8wxmc"]
+[ext_resource type="PackedScene" uid="uid://c6pe67ejy0hys" path="res://src/ui/interact_menu.tscn" id="3_sjdex"]
+
+[node name="UI" type="MarginContainer" unique_id=1333763095]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qemve")
+script = ExtResource("2_8wxmc")
+
+[node name="InteractMenu" parent="." unique_id=962631880 instance=ExtResource("3_sjdex")]
+layout_mode = 2

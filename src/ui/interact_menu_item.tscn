@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cubon8bxpkrxx"]
+
+[ext_resource type="Texture2D" uid="uid://eclrcdc4u3jx" path="res://assets/images/kenney_micro-roguelike/Tilemap/colored_tilemap_packed.png" id="1_6ie4g"]
+[ext_resource type="Script" uid="uid://dpdtf6nla7uhs" path="res://src/ui/interact_menu_item.gd" id="1_6x7g2"]
+[ext_resource type="Theme" uid="uid://bu21qjqh6rb1l" path="res://resources/ui_theme.tres" id="1_8h7ru"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klw1u"]
+atlas = ExtResource("1_6ie4g")
+region = Rect2(56, 64, 8, 8)
+
+[node name="InteractMenuItem" type="MarginContainer" unique_id=843589222]
+z_index = 1
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_8h7ru")
+script = ExtResource("1_6x7g2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=622127893]
+layout_mode = 2
+focus_behavior_recursive = 1
+
+[node name="ItemTexture" type="TextureRect" parent="HBoxContainer" unique_id=767362753]
+unique_name_in_owner = true
+z_index = -1
+layout_mode = 2
+texture = SubResource("AtlasTexture_klw1u")
+expand_mode = 3
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=209462271]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ItemName" type="Label" parent="HBoxContainer" unique_id=1128317353]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+text = "Potion"

@@ -4,5 +4,4 @@
 
 [node name="Player" type="Node" unique_id=48821969]
 script = ExtResource("1_3vyb7")
-_walls_tilemap_path = null
-_entities_tilemap_path = null
+entity_name = "Snakey"
