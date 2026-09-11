@@ -1,7 +1,7 @@
 class_name Entity
 extends Node
 
-signal position_changed(new_position: Vector2)
+signal position_changed(new_world_position: Vector2, old_world_position: Vector2)
 
 const TILEMAP_SOURCE_ID := 0
 
@@ -81,7 +81,16 @@ func get_map_position() -> Vector2i:
 
 
 func get_world_position() -> Vector2:
-	var new_local_pos := _entities_tilemap.map_to_local(_map_position)
+	return map_to_world_position(_map_position)
+
+
+func world_to_map_position(world_pos: Vector2) -> Vector2i:
+	var local := _entities_tilemap.to_local(world_pos)
+	return _entities_tilemap.local_to_map(local)
+
+
+func map_to_world_position(map_pos: Vector2i) -> Vector2:
+	var new_local_pos := _entities_tilemap.map_to_local(map_pos)
 	return _entities_tilemap.to_global(new_local_pos)
 
 
@@ -89,6 +98,8 @@ func get_world_position() -> Vector2:
 ## (no entity/wall), and false if it's not. Will only update the position
 ## internally if the position change succeeded. Update the entity tilemap.
 func set_map_position(new_map_pos: Vector2i) -> bool:
+	var old_global_pos := get_world_position()
+
 	if _entities_tilemap.get_cell_source_id(new_map_pos) != -1:
 		return _try_slide(new_map_pos - _map_position)
 	if _walls_tilemap.get_cell_source_id(new_map_pos) != -1:
@@ -104,7 +115,7 @@ func set_map_position(new_map_pos: Vector2i) -> bool:
 
 	var new_local_pos := _entities_tilemap.map_to_local(new_map_pos)
 	var new_global_pos = _entities_tilemap.to_global(new_local_pos)
-	position_changed.emit(new_global_pos)
+	position_changed.emit(new_global_pos, old_global_pos)
 
 	return true
 

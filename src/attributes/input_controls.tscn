@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://sk75lsv1ncxu"]
+
+[ext_resource type="Script" uid="uid://vlbyt8kbinfd" path="res://src/attributes/input_controls.gd" id="1_hlnr3"]
+
+[node name="InputControls" type="Node" unique_id=576649192]
+script = ExtResource("1_hlnr3")
+
+[node name="MovementCooldown" type="Timer" parent="." unique_id=53962504]
+unique_name_in_owner = true
+one_shot = true

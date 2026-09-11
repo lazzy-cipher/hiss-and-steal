@@ -16,19 +16,19 @@ func _ready() -> void:
 func _gui_input(event: InputEvent) -> void:
 	if not has_focus():
 		return
-	
+
 	var select := false
-	
+
 	if event.is_action_pressed(&"ui_accept")\
 			or event.is_action_pressed(&"ui_select"):
 		select = true
-	
+
 	if event is InputEventMouseButton:
 		var mouse_event: InputEventMouseButton = event
 		if mouse_event.button_index == MOUSE_BUTTON_LEFT\
 				and mouse_event.pressed:
 			select = true
-	
+
 	if select:
 		selected.emit(self)
 		accept_event()
@@ -41,15 +41,15 @@ func _draw() -> void:
 
 func setup(entity: Entity) -> void:
 	assert(is_instance_valid(entity))
-	
+
 	var atlas_texture := AtlasTexture.new()
 	atlas_texture.atlas = ATLAS
 	atlas_texture.region.size = ATLAS_SIZE
 	atlas_texture.region.position = Vector2(entity.get_sprite_id()) * ATLAS_SIZE
-	
+
 	%ItemTexture.texture = atlas_texture
 	%ItemName.text = entity.entity_name
-	
+
 	_entity = entity
 
 
