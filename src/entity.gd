@@ -33,6 +33,8 @@ static var sprite_coords := {
 @export_node_path("TileMapLayer") var walls_tilemap_path: NodePath
 @export_node_path("TileMapLayer") var entities_tilemap_path: NodePath
 
+static var _entity_positions := {}
+
 var _map_position: Vector2i
 
 var _walls_tilemap: TileMapLayer
@@ -68,6 +70,7 @@ func _spawn() -> void:
 
 	_map_position = map_pos # hack to disable sliding
 	var successfully_spawned := set_map_position(map_pos)
+	_entity_positions[_map_position] = self
 
 	assert(successfully_spawned, "unable to spawn")
 
@@ -105,8 +108,12 @@ func set_map_position(new_map_pos: Vector2i) -> bool:
 	if _walls_tilemap.get_cell_source_id(new_map_pos) != -1:
 		return _try_slide(new_map_pos - _map_position)
 
+	_entity_positions.erase(_map_position)
 	_entities_tilemap.erase_cell(_map_position)
+
 	_map_position = new_map_pos
+
+	_entity_positions.set(_map_position, self)
 	_entities_tilemap.set_cell(
 		new_map_pos,
 		TILEMAP_SOURCE_ID,
@@ -133,3 +140,29 @@ func _try_slide(dir: Vector2i) -> bool:
 
 func interact(_from: Entity, _interaction := {}) -> void:
 	pass
+
+
+static func search_entity(at: Vector2i) -> Entity:
+	return _entity_positions.get(at, null)
+
+
+static func search_around(entity: Entity) -> Array[Entity]:
+	var ret := [] as Array[Entity]
+
+	for dir: Vector2i in [
+		Vector2i.UP,
+		Vector2i.DOWN,
+		Vector2i.LEFT,
+		Vector2i.RIGHT,
+		Vector2i.UP + Vector2i.LEFT,
+		Vector2i.UP + Vector2i.RIGHT,
+		Vector2i.DOWN + Vector2i.LEFT,
+		Vector2i.DOWN + Vector2i.RIGHT,
+	]:
+		var search_pos := entity.get_map_position() + dir
+		var found_entity := search_entity(search_pos)
+		if found_entity != null:
+			assert(is_instance_valid(found_entity))
+			ret.push_back(found_entity)
+
+	return ret

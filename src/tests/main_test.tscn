@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://8amusei1cug0" path="res://src/tests/tile_maps.gd" id="3_ch5kc"]
 [ext_resource type="PackedScene" uid="uid://32nj5sxecchf" path="res://src/attributes/camera_follow.tscn" id="3_fawyb"]
 [ext_resource type="Texture2D" uid="uid://eclrcdc4u3jx" path="res://assets/images/kenney_micro-roguelike/Tilemap/colored_tilemap_packed.png" id="4_72ufq"]
-[ext_resource type="PackedScene" uid="uid://sk75lsv1ncxu" path="res://src/attributes/input_controls.tscn" id="4_vaa5k"]
+[ext_resource type="PackedScene" uid="uid://sk75lsv1ncxu" path="res://src/attributes/movement_controls.tscn" id="4_vaa5k"]
 [ext_resource type="PackedScene" uid="uid://ov4i6owl55nb" path="res://src/attributes/holding.tscn" id="5_fawyb"]
 [ext_resource type="Script" uid="uid://ljuycjkuaihn" path="res://src/tests/camera_2d.gd" id="6_iusc2"]
 [ext_resource type="PackedScene" uid="uid://b0nkbgtbnccwc" path="res://src/ui/ui.tscn" id="7_8ydw5"]

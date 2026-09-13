@@ -1,7 +1,18 @@
 [gd_scene format=3 uid="uid://dy01b51wqfeie"]
 
 [ext_resource type="Script" uid="uid://dc8l8523jieq4" path="res://src/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://32nj5sxecchf" path="res://src/attributes/camera_follow.tscn" id="2_bktlc"]
+[ext_resource type="PackedScene" uid="uid://ov4i6owl55nb" path="res://src/attributes/holding.tscn" id="3_pg28d"]
+[ext_resource type="PackedScene" uid="uid://sk75lsv1ncxu" path="res://src/attributes/movement_controls.tscn" id="4_21lrq"]
 
 [node name="Player" type="Node" unique_id=48821969]
 script = ExtResource("1_3vyb7")
 entity_name = "Snakey"
+
+[node name="CameraFollow" parent="." unique_id=2125921163 instance=ExtResource("2_bktlc")]
+unique_name_in_owner = true
+
+[node name="Holding" parent="." unique_id=460519408 instance=ExtResource("3_pg28d")]
+unique_name_in_owner = true
+
+[node name="MovementControls" parent="." unique_id=576649192 instance=ExtResource("4_21lrq")]

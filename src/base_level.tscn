@@ -3,11 +3,8 @@
 [ext_resource type="Script" uid="uid://dwph3hwentqb2" path="res://src/tests/main_test.gd" id="1_jbgfa"]
 [ext_resource type="PackedScene" uid="uid://dy01b51wqfeie" path="res://src/player.tscn" id="2_btbsa"]
 [ext_resource type="Script" uid="uid://bvcyoqjkn5dn6" path="res://src/entity.gd" id="3_jy0de"]
-[ext_resource type="PackedScene" uid="uid://sk75lsv1ncxu" path="res://src/attributes/input_controls.tscn" id="3_k7hka"]
-[ext_resource type="PackedScene" uid="uid://32nj5sxecchf" path="res://src/attributes/camera_follow.tscn" id="4_ohl3f"]
 [ext_resource type="Script" uid="uid://ljuycjkuaihn" path="res://src/tests/camera_2d.gd" id="4_vdy32"]
 [ext_resource type="Script" uid="uid://8amusei1cug0" path="res://src/tests/tile_maps.gd" id="5_8b2g8"]
-[ext_resource type="Script" uid="uid://bkgs61l2h2rbe" path="res://src/attributes/holding.gd" id="5_l54d2"]
 [ext_resource type="TileSet" uid="uid://b6o54rrb4as8x" path="res://resources/game.tres" id="6_wto8j"]
 [ext_resource type="Texture2D" uid="uid://eclrcdc4u3jx" path="res://assets/images/kenney_micro-roguelike/Tilemap/colored_tilemap_packed.png" id="7_gpwag"]
 [ext_resource type="PackedScene" uid="uid://b0nkbgtbnccwc" path="res://src/ui/ui.tscn" id="8_7jnl6"]
@@ -24,15 +21,6 @@ sprite = 1
 spawn_position = NodePath("../../EntitySpawnPositions/PlayerSpawn")
 walls_tilemap_path = NodePath("../../TileMaps/Walls")
 entities_tilemap_path = NodePath("../../TileMaps/Entities")
-
-[node name="Holding" type="Node" parent="Entities/Player" unique_id=1249547025]
-script = ExtResource("5_l54d2")
-_held_entities_tilemap_path = NodePath("../../../TileMaps/HeldItem")
-
-[node name="InputControls" parent="Entities/Player" unique_id=576649192 instance=ExtResource("3_k7hka")]
-
-[node name="CameraFollow" parent="Entities/Player" unique_id=2125921163 instance=ExtResource("4_ohl3f")]
-_camera_path = NodePath("../../../Camera")
 
 [node name="Potion" type="Node" parent="Entities" unique_id=514619248]
 script = ExtResource("3_jy0de")
