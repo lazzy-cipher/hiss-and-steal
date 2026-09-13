@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://c6pe67ejy0hys"]
+
+[ext_resource type="Theme" uid="uid://bu21qjqh6rb1l" path="res://resources/ui_theme.tres" id="1_g818b"]
+[ext_resource type="Script" uid="uid://bhwr3g4ovsw6n" path="res://src/ui/selection_menu.gd" id="2_cl6kk"]
+[ext_resource type="PackedScene" uid="uid://bg2gsjqjfmpfq" path="res://src/ui/panel.tscn" id="3_d7ni5"]
+
+[node name="SelectionMenu" type="MarginContainer" unique_id=962631880]
+texture_filter = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_g818b")
+script = ExtResource("2_cl6kk")
+
+[node name="Panel" parent="." unique_id=1864724319 instance=ExtResource("3_d7ni5")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=427399882]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="SelectionContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1971558996]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Prompt" type="Label" parent="MarginContainer/SelectionContainer" unique_id=1193429177]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Select below"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/SelectionContainer" unique_id=1818545071]
+layout_mode = 2

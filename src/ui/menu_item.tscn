@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cubon8bxpkrxx"]
+
+[ext_resource type="Theme" uid="uid://bu21qjqh6rb1l" path="res://resources/ui_theme.tres" id="1_sbvai"]
+[ext_resource type="Script" uid="uid://dpdtf6nla7uhs" path="res://src/ui/menu_item.gd" id="2_oftat"]
+[ext_resource type="Shader" uid="uid://7exaywmovkx7" path="res://src/shaders/rotate.gdshader" id="3_8f11g"]
+[ext_resource type="Texture2D" uid="uid://eclrcdc4u3jx" path="res://assets/images/kenney_micro-roguelike/Tilemap/colored_tilemap_packed.png" id="4_gqrpv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8h7ru"]
+resource_local_to_scene = true
+shader = ExtResource("3_8f11g")
+shader_parameter/rotation = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klw1u"]
+atlas = ExtResource("4_gqrpv")
+region = Rect2(8, 64, 8, 8)
+
+[node name="MenuItem" type="MarginContainer" unique_id=843589222]
+z_index = 1
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_sbvai")
+script = ExtResource("2_oftat")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=622127893]
+layout_mode = 2
+focus_behavior_recursive = 1
+
+[node name="ItemTexture" type="TextureRect" parent="HBoxContainer" unique_id=767362753]
+unique_name_in_owner = true
+z_index = -1
+material = SubResource("ShaderMaterial_8h7ru")
+layout_mode = 2
+texture = SubResource("AtlasTexture_klw1u")
+expand_mode = 3
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=209462271]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="ItemName" type="Label" parent="HBoxContainer" unique_id=1128317353]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+text = "Unknown Item"

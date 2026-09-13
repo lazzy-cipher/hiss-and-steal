@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://0pqhk6tkix73" path="res://assets/images/panel.png" id="1_os5v0"]
 
-[node name="Panel" type="NinePatchRect" unique_id=1864724319]
+[node name="Panel" type="NinePatchRect" unique_id=177321503]
 texture = ExtResource("1_os5v0")
 region_rect = Rect2(0, 0, 11, 11)
 patch_margin_left = 5

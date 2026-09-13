@@ -17,7 +17,6 @@ script = ExtResource("1_mgebw")
 
 [node name="Player" parent="Entities" unique_id=48821969 instance=ExtResource("2_7rnyh")]
 unique_name_in_owner = true
-_held_entities_tilemap_path = NodePath("../../TileMaps/HeldItem")
 sprite = 1
 spawn_position = NodePath("../../EntitySpawnPositions/PlayerSpawn")
 walls_tilemap_path = NodePath("../../TileMaps/Walls")

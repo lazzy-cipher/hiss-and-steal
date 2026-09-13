@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dcrg8a6j0uj7y"]
+
+[ext_resource type="PackedScene" uid="uid://c6pe67ejy0hys" path="res://src/ui/selection_menu.tscn" id="1_bg1de"]
+[ext_resource type="Script" uid="uid://moit4owgwk3r" path="res://src/ui/entity_menu.gd" id="2_2crim"]
+
+[node name="EntityMenu" unique_id=962631880 instance=ExtResource("1_bg1de")]
+script = ExtResource("2_2crim")
+prompt = "Who?"
+
+[node name="Prompt" parent="MarginContainer/SelectionContainer" parent_id_path=PackedInt32Array(1971558996) index="0" unique_id=1193429177]
+text = "Who?"
