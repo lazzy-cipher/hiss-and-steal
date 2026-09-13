@@ -35,7 +35,7 @@ func _process_movement() -> void:
 
 func _process_movement_speed():
 	var is_running := Input.is_action_pressed(&"run")
-	var speed = 1.0 / (walking_speed if is_running else running_speed)
+	var speed = 1.0 / (running_speed if is_running else walking_speed)
 	%MovementCooldown.wait_time = speed
 
 

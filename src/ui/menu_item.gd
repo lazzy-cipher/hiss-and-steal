@@ -3,6 +3,9 @@ extends MarginContainer
 
 signal selected(item: MenuItem)
 
+@onready var item_name: Label = %ItemName
+@onready var item_texture: TextureRect = %ItemTexture
+
 var payload
 
 var _rotation: int
@@ -19,8 +22,8 @@ func setup(texture: Texture2D, text: String, payload: Variant) -> void:
 	if payload is Object and payload != null:
 		assert(is_instance_valid(payload))
 
-	%ItemTexture.texture = texture
-	%ItemName.text = text
+	item_texture.texture = texture
+	item_name.text = text
 
 	self.payload = payload
 
@@ -42,7 +45,7 @@ func rotate_image_180_degrees() -> void:
 
 func _show_image_rotation(image_rotation) -> void:
 	assert(_rotation == 0 or _rotation == 90 or _rotation == 180 or _rotation == 270)
-	var shader: ShaderMaterial = %ItemTexture.material
+	var shader: ShaderMaterial = item_texture.material
 	shader.set_shader_parameter(&"rotation", image_rotation)
 
 

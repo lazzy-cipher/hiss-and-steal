@@ -1,0 +1,211 @@
+[gd_scene format=3 uid="uid://ra6iwfsnj5ir"]
+
+[ext_resource type="Theme" uid="uid://bu21qjqh6rb1l" path="res://resources/ui_theme.tres" id="1_c7j4j"]
+[ext_resource type="PackedScene" uid="uid://bg2gsjqjfmpfq" path="res://src/ui/panel.tscn" id="1_s7u2t"]
+[ext_resource type="PackedScene" uid="uid://cubon8bxpkrxx" path="res://src/ui/menu_item.tscn" id="2_c7j4j"]
+[ext_resource type="Script" uid="uid://ddqtq3ekymd2f" path="res://src/ui/actions_menu.gd" id="2_jtg18"]
+[ext_resource type="Shader" uid="uid://7exaywmovkx7" path="res://src/shaders/rotate.gdshader" id="3_jtg18"]
+[ext_resource type="Texture2D" uid="uid://eclrcdc4u3jx" path="res://assets/images/kenney_micro-roguelike/Tilemap/colored_tilemap_packed.png" id="4_rp2wm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtg18"]
+resource_local_to_scene = true
+shader = ExtResource("3_jtg18")
+shader_parameter/rotation = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rp2wm"]
+resource_local_to_scene = true
+atlas = ExtResource("4_rp2wm")
+region = Rect2(80, 56, 8, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wtwxj"]
+resource_local_to_scene = true
+shader = ExtResource("3_jtg18")
+shader_parameter/rotation = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8amy"]
+resource_local_to_scene = true
+atlas = ExtResource("4_rp2wm")
+region = Rect2(120, 24, 8, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_csbk4"]
+resource_local_to_scene = true
+shader = ExtResource("3_jtg18")
+shader_parameter/rotation = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwdio"]
+resource_local_to_scene = true
+atlas = ExtResource("4_rp2wm")
+region = Rect2(0, 80, 8, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_604uq"]
+resource_local_to_scene = true
+shader = ExtResource("3_jtg18")
+shader_parameter/rotation = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7qur"]
+resource_local_to_scene = true
+atlas = ExtResource("4_rp2wm")
+region = Rect2(48, 48, 8, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7xkrl"]
+resource_local_to_scene = true
+shader = ExtResource("3_jtg18")
+shader_parameter/rotation = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eocg"]
+resource_local_to_scene = true
+atlas = ExtResource("4_rp2wm")
+region = Rect2(72, 56, 8, 8)
+
+[node name="ActionsMenu" type="MarginContainer" unique_id=587379417]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_c7j4j")
+script = ExtResource("2_jtg18")
+
+[node name="Panel" parent="." unique_id=177321503 instance=ExtResource("1_s7u2t")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1748720888]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=878440585]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer" unique_id=1278364482]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1000304820]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TakeMenuItem" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=843589222 instance=ExtResource("2_c7j4j")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ItemTexture" parent="MarginContainer/HBoxContainer/VBoxContainer/TakeMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(843589222, 622127893) index="0" unique_id=767362753]
+material = SubResource("ShaderMaterial_jtg18")
+texture = SubResource("AtlasTexture_rp2wm")
+
+[node name="ItemName" parent="MarginContainer/HBoxContainer/VBoxContainer/TakeMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(843589222, 622127893) index="2" unique_id=1128317353]
+text = "(%s) Take"
+
+[node name="TalkMenuItem" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1699623898 instance=ExtResource("2_c7j4j")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ItemTexture" parent="MarginContainer/HBoxContainer/VBoxContainer/TalkMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(1699623898, 622127893) index="0" unique_id=767362753]
+material = SubResource("ShaderMaterial_wtwxj")
+texture = SubResource("AtlasTexture_f8amy")
+
+[node name="ItemName" parent="MarginContainer/HBoxContainer/VBoxContainer/TalkMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(1699623898, 622127893) index="2" unique_id=1128317353]
+text = "(%s) Talk"
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/HBoxContainer" unique_id=809598211]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 64
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1933128912]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="InspectMenuItem" parent="MarginContainer/HBoxContainer/VBoxContainer3" unique_id=892964475 instance=ExtResource("2_c7j4j")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ItemTexture" parent="MarginContainer/HBoxContainer/VBoxContainer3/InspectMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(892964475, 622127893) index="0" unique_id=767362753]
+material = SubResource("ShaderMaterial_csbk4")
+texture = SubResource("AtlasTexture_cwdio")
+
+[node name="ItemName" parent="MarginContainer/HBoxContainer/VBoxContainer3/InspectMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(892964475, 622127893) index="2" unique_id=1128317353]
+text = "(%s) Inspect"
+
+[node name="KissMenuItem" parent="MarginContainer/HBoxContainer/VBoxContainer3" unique_id=708421906 instance=ExtResource("2_c7j4j")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ItemTexture" parent="MarginContainer/HBoxContainer/VBoxContainer3/KissMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(708421906, 622127893) index="0" unique_id=767362753]
+material = SubResource("ShaderMaterial_604uq")
+texture = SubResource("AtlasTexture_q7qur")
+
+[node name="ItemName" parent="MarginContainer/HBoxContainer/VBoxContainer3/KissMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(708421906, 622127893) index="2" unique_id=1128317353]
+text = "(%s) Kiss"
+
+[node name="VSeparator3" type="VSeparator" parent="MarginContainer/HBoxContainer" unique_id=2053584660]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 64
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1501722132]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="OroborosMenuItem" parent="MarginContainer/HBoxContainer/VBoxContainer4" unique_id=1914293139 instance=ExtResource("2_c7j4j")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ItemTexture" parent="MarginContainer/HBoxContainer/VBoxContainer4/OroborosMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(1914293139, 622127893) index="0" unique_id=767362753]
+material = SubResource("ShaderMaterial_7xkrl")
+texture = SubResource("AtlasTexture_3eocg")
+
+[node name="ItemName" parent="MarginContainer/HBoxContainer/VBoxContainer4/OroborosMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(1914293139, 622127893) index="2" unique_id=1128317353]
+text = "(%s) Oroboros"
+
+[node name="VSeparator4" type="VSeparator" parent="MarginContainer/HBoxContainer" unique_id=2098246192]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 64
+
+[editable path="MarginContainer/HBoxContainer/VBoxContainer/TakeMenuItem"]
+[editable path="MarginContainer/HBoxContainer/VBoxContainer/TalkMenuItem"]
+[editable path="MarginContainer/HBoxContainer/VBoxContainer3/InspectMenuItem"]
+[editable path="MarginContainer/HBoxContainer/VBoxContainer3/KissMenuItem"]
+[editable path="MarginContainer/HBoxContainer/VBoxContainer4/OroborosMenuItem"]

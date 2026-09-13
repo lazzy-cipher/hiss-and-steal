@@ -11,8 +11,9 @@ shader = ExtResource("3_8f11g")
 shader_parameter/rotation = 0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_klw1u"]
+resource_local_to_scene = true
 atlas = ExtResource("4_gqrpv")
-region = Rect2(8, 64, 8, 8)
+region = Rect2(30, 47, 8, 8)
 
 [node name="MenuItem" type="MarginContainer" unique_id=843589222]
 z_index = 1
@@ -26,6 +27,7 @@ focus_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_sbvai")
 script = ExtResource("2_oftat")
+metadata/_edit_group_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=622127893]
 layout_mode = 2

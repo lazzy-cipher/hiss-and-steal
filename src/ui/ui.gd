@@ -4,23 +4,22 @@ extends MarginContainer
 @onready var direction_menu: DirectionMenu = %DirectionMenu
 
 
-func hide_all() -> void:
-	for menu: SelectionMenu in get_children():
-		menu.hide()
-		menu.focus_behavior_recursive = Control.FOCUS_BEHAVIOR_DISABLED
-		menu.mouse_behavior_recursive = Control.MOUSE_BEHAVIOR_DISABLED
+func popup(menu: SelectionMenu) -> void:
+	$BaseUI.mouse_behavior_recursive = MOUSE_BEHAVIOR_DISABLED
+	$BaseUI.focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED
 
+	%SelectionMenus.show()
 
-func show_entity_menu() -> void:
-	show_menu(entity_menu)
+	for m: SelectionMenu in _get_selection_menus():
+		m.hide()
 
-
-func show_direction_menu() -> void:
-	show_menu(direction_menu)
-
-
-func show_menu(menu: SelectionMenu) -> void:
-	assert(is_instance_valid(menu))
-
-	hide_all()
 	menu.show()
+	menu.selected.connect(func():
+		$BaseUI.mouse_behavior_recursive = MOUSE_BEHAVIOR_INHERITED
+		$BaseUI.focus_behavior_recursive = FOCUS_BEHAVIOR_INHERITED
+		%SelectionMenus.hide())
+
+
+func _get_selection_menus() -> Array[SelectionMenu]:
+	var filter := func(m): return m is SelectionMenu
+	return %SelectionMenus.get_children().filter(filter)

@@ -4,6 +4,8 @@ extends MarginContainer
 const ITEM := preload("res://src/ui/menu_item.tscn")
 const MAX_ITEMS := 8
 
+signal selected(item: MenuItem)
+
 @export var prompt := "Where?":
 	set = set_prompt
 
@@ -72,5 +74,4 @@ func _get_menu_items() -> Array[MenuItem]:
 
 
 func _on_item_selected(item: MenuItem) -> void:
-	# TODO
-	print_debug(item.payload)
+	selected.emit(item)

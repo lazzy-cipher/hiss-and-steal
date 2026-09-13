@@ -4,7 +4,14 @@
 [ext_resource type="Script" uid="uid://bn38tr7qpl4in" path="res://src/ui/ui.gd" id="2_8wxmc"]
 [ext_resource type="PackedScene" uid="uid://dcrg8a6j0uj7y" path="res://src/ui/entity_menu.tscn" id="3_8wxmc"]
 [ext_resource type="PackedScene" uid="uid://bsqmtukn75udc" path="res://src/ui/direction_menu.tscn" id="4_7abqo"]
-[ext_resource type="PackedScene" uid="uid://bg2gsjqjfmpfq" path="res://src/ui/panel.tscn" id="4_8wxmc"]
+[ext_resource type="PackedScene" uid="uid://bg2gsjqjfmpfq" path="res://src/ui/panel.tscn" id="5_gucsq"]
+[ext_resource type="PackedScene" uid="uid://ra6iwfsnj5ir" path="res://src/ui/actions_menu.tscn" id="5_sjdex"]
+[ext_resource type="Texture2D" uid="uid://eclrcdc4u3jx" path="res://assets/images/kenney_micro-roguelike/Tilemap/colored_tilemap_packed.png" id="8_t30i7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruj2u"]
+resource_local_to_scene = true
+atlas = ExtResource("8_t30i7")
+region = Rect2(32, 8, 8, 8)
 
 [node name="UI" type="MarginContainer" unique_id=1333763095]
 texture_filter = 1
@@ -16,26 +23,69 @@ grow_vertical = 2
 theme = ExtResource("1_qemve")
 script = ExtResource("2_8wxmc")
 
-[node name="EntityMenu" parent="." unique_id=962631880 instance=ExtResource("3_8wxmc")]
-unique_name_in_owner = true
+[node name="BaseUI" type="MarginContainer" parent="." unique_id=794870394]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Control" type="Control" parent="BaseUI" unique_id=987923346]
 layout_mode = 2
 
-[node name="DirectionMenu" parent="." unique_id=1144519312 instance=ExtResource("4_7abqo")]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Control" type="Control" parent="." unique_id=1416466498]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=713652141]
+[node name="MarginContainer" type="MarginContainer" parent="BaseUI/Control" unique_id=1641316241]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.83300006
-anchor_right = 1.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = 0.21594238
-grow_horizontal = 2
+offset_top = -138.0
+offset_right = 138.0
 grow_vertical = 0
+size_flags_horizontal = 2
+metadata/_edit_group_ = true
 
-[node name="Panel" parent="Control/MarginContainer" unique_id=177321503 instance=ExtResource("4_8wxmc")]
+[node name="Panel" parent="BaseUI/Control/MarginContainer" unique_id=177321503 instance=ExtResource("5_gucsq")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="BaseUI/Control/MarginContainer" unique_id=858132521]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TextureRect" type="TextureRect" parent="BaseUI/Control/MarginContainer/MarginContainer" unique_id=279142244]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = SubResource("AtlasTexture_ruj2u")
+stretch_mode = 5
+
+[node name="ActionsMenu" parent="BaseUI/Control" unique_id=587379417 instance=ExtResource("5_sjdex")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = -816.0
+offset_top = -132.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="SelectionMenus" type="MarginContainer" parent="." unique_id=2076539852]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="SelectionMenus" unique_id=575050780]
+layout_mode = 2
+color = Color(0.13333334, 0.13725491, 0.13725491, 0.49803922)
+
+[node name="EntityMenu" parent="SelectionMenus" unique_id=962631880 instance=ExtResource("3_8wxmc")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DirectionMenu" parent="SelectionMenus" unique_id=1144519312 instance=ExtResource("4_7abqo")]
+unique_name_in_owner = true
 layout_mode = 2
