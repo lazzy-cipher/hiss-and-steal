@@ -1,3 +1,4 @@
+class_name MovementControlsAttribute
 extends Attribute
 
 var walking_speed := 10.0 # tile per second

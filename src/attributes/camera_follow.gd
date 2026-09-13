@@ -1,3 +1,4 @@
+class_name CameraFollowAttribute
 extends Attribute
 
 static var _count := 0

@@ -1,6 +1,7 @@
+class_name HoldingAttribute
 extends Attribute
 
-signal holding_requested(from: Entity)
+signal holding_requested(from: HoldingAttribute)
 
 const HELD_POSITION := Vector2i.UP
 
@@ -10,12 +11,11 @@ var _held_entities_tilemap: TileMapLayer
 func _ready():
 	super()
 
-	get_entity().position_changed.connect(_move_held)
-
 
 func initialize(held_entities_tilemap: TileMapLayer) -> void:
 	assert(is_instance_valid(held_entities_tilemap))
 	_held_entities_tilemap = held_entities_tilemap
+	get_entity().position_changed.connect(_move_held)
 
 
 func hold(entity: Entity) -> void:
@@ -26,16 +26,18 @@ func hold(entity: Entity) -> void:
 		"holding two items is not a supported feature, yet")
 
 	var new_held_map_pos: Vector2i = get_entity().get_map_position() + HELD_POSITION
-	var old_map_pos := entity.get_map_position()
 
 	_held = entity
-	_held._map_position = new_held_map_pos
+	entity.remove()
 	_held_entities_tilemap.set_cell(
 		new_held_map_pos,
 		Entity.TILEMAP_SOURCE_ID,
 		entity.get_sprite_id(),
 	)
-	entity._entities_tilemap.erase_cell(old_map_pos)
+
+
+func get_held() -> Entity:
+	return _held
 
 
 func _move_held(new_world_position: Vector2, old_world_position: Vector2) -> void:
@@ -43,6 +45,7 @@ func _move_held(new_world_position: Vector2, old_world_position: Vector2) -> voi
 		"run initialize() before using the attribute")
 	if not is_instance_valid(_held):
 		return
+	assert(not _held.is_map_position_valid())
 
 	var new_map_position := get_entity().world_to_map_position(new_world_position)
 	var old_map_position := get_entity().world_to_map_position(old_world_position)
@@ -56,9 +59,8 @@ func _move_held(new_world_position: Vector2, old_world_position: Vector2) -> voi
 		Entity.TILEMAP_SOURCE_ID,
 		_held.get_sprite_id(),
 	)
-	_held._map_position = new_held_map_pos
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"take"):
-		holding_requested.emit(get_entity())
+		holding_requested.emit(self)

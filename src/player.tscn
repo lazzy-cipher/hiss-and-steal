@@ -9,10 +9,10 @@
 script = ExtResource("1_3vyb7")
 entity_name = "Snakey"
 
-[node name="CameraFollow" parent="." unique_id=2125921163 instance=ExtResource("2_bktlc")]
+[node name="Holding" parent="." unique_id=460519408 instance=ExtResource("3_pg28d")]
 unique_name_in_owner = true
 
-[node name="Holding" parent="." unique_id=460519408 instance=ExtResource("3_pg28d")]
+[node name="CameraFollow" parent="." unique_id=2125921163 instance=ExtResource("2_bktlc")]
 unique_name_in_owner = true
 
 [node name="MovementControls" parent="." unique_id=576649192 instance=ExtResource("4_21lrq")]

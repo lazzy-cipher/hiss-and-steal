@@ -4,6 +4,7 @@ extends Node
 signal position_changed(new_world_position: Vector2, old_world_position: Vector2)
 
 const TILEMAP_SOURCE_ID := 0
+const INVALID_TILE := Vector2i(INT64_MIN, INT64_MIN)
 
 enum SPRITE {
 	PLACEHOLDER,
@@ -33,9 +34,14 @@ static var sprite_coords := {
 @export_node_path("TileMapLayer") var walls_tilemap_path: NodePath
 @export_node_path("TileMapLayer") var entities_tilemap_path: NodePath
 
+## The position the entity broadcasts to other entities. Not all entities
+## broastcast their positions (i.e. held entities, unspawned). Cells can only
+## contain one entity.
 static var _entity_positions := {}
 
-var _map_position: Vector2i
+## The entity's private position. When held, it holds the last position before
+## they were picked up.
+var _map_position: Vector2i = INVALID_TILE
 
 var _walls_tilemap: TileMapLayer
 var _entities_tilemap: TileMapLayer
@@ -44,7 +50,13 @@ var _entities_tilemap: TileMapLayer
 func _ready() -> void:
 	sprite_coords.make_read_only()
 	_setup_tilemaps()
-	_spawn()
+
+	assert(not spawn_position.is_empty())
+	var spawn_node_pos: Node2D = get_node(spawn_position)
+	assert(is_instance_valid(spawn_node_pos))
+	var spawn_point := world_to_map_position(spawn_node_pos.global_position)
+	var successfully_spawned := set_map_position(spawn_point)
+	assert(successfully_spawned, "invalid spawn point %v" % spawn_point)
 
 
 func _setup_tilemaps() -> void:
@@ -56,23 +68,6 @@ func _setup_tilemaps() -> void:
 
 	assert(is_instance_valid(_walls_tilemap))
 	assert(is_instance_valid(_entities_tilemap))
-
-
-func _spawn() -> void:
-	assert(not spawn_position.is_empty())
-	assert(is_instance_valid(_entities_tilemap),
-		"invalid entity tilemap, call _setup_tilemaps() before calling _spawn()")
-
-	var spawn_node_pos: Node2D = get_node(spawn_position)
-	assert(is_instance_valid(spawn_node_pos))
-	var local_pos := _entities_tilemap.to_local(spawn_node_pos.global_position)
-	var map_pos := _entities_tilemap.local_to_map(local_pos)
-
-	_map_position = map_pos # hack to disable sliding
-	var successfully_spawned := set_map_position(map_pos)
-	_entity_positions[_map_position] = self
-
-	assert(successfully_spawned, "unable to spawn")
 
 
 func get_sprite_id() -> Vector2i:
@@ -88,11 +83,17 @@ func get_world_position() -> Vector2:
 
 
 func world_to_map_position(world_pos: Vector2) -> Vector2i:
+	if world_pos != world_pos: # nan
+		return INVALID_TILE
+
 	var local := _entities_tilemap.to_local(world_pos)
 	return _entities_tilemap.local_to_map(local)
 
 
 func map_to_world_position(map_pos: Vector2i) -> Vector2:
+	if map_pos == INVALID_TILE:
+		return Vector2(NAN, NAN)
+
 	var new_local_pos := _entities_tilemap.map_to_local(map_pos)
 	return _entities_tilemap.to_global(new_local_pos)
 
@@ -101,28 +102,30 @@ func map_to_world_position(map_pos: Vector2i) -> Vector2:
 ## (no entity/wall), and false if it's not. Will only update the position
 ## internally if the position change succeeded. Update the entity tilemap.
 func set_map_position(new_map_pos: Vector2i) -> bool:
-	var old_global_pos := get_world_position()
+	var old_map_pos := _map_position
 
 	if _entities_tilemap.get_cell_source_id(new_map_pos) != -1:
-		return _try_slide(new_map_pos - _map_position)
+		return _try_slide(new_map_pos - old_map_pos)
 	if _walls_tilemap.get_cell_source_id(new_map_pos) != -1:
-		return _try_slide(new_map_pos - _map_position)
+		return _try_slide(new_map_pos - old_map_pos)
 
-	_entity_positions.erase(_map_position)
-	_entities_tilemap.erase_cell(_map_position)
-
-	_map_position = new_map_pos
-
-	_entity_positions.set(_map_position, self)
+	_entities_tilemap.erase_cell(old_map_pos)
 	_entities_tilemap.set_cell(
 		new_map_pos,
 		TILEMAP_SOURCE_ID,
 		sprite_coords[sprite],
 	)
 
-	var new_local_pos := _entities_tilemap.map_to_local(new_map_pos)
-	var new_global_pos = _entities_tilemap.to_global(new_local_pos)
-	position_changed.emit(new_global_pos, old_global_pos)
+
+	_map_position = new_map_pos
+
+	_entity_positions.erase(old_map_pos)
+	_entity_positions.set(new_map_pos, self)
+
+	position_changed.emit(
+		map_to_world_position(new_map_pos),
+		map_to_world_position(old_map_pos),
+	)
 
 	return true
 
@@ -138,15 +141,27 @@ func _try_slide(dir: Vector2i) -> bool:
 		or set_map_position(_map_position + test_2)
 
 
+func is_map_position_valid() -> bool:
+	return _map_position != INVALID_TILE
+
+
 func interact(_from: Entity, _interaction := {}) -> void:
 	pass
 
 
+@warning_ignore("unused_parameter")
+func request_holding(from: HoldingAttribute) -> bool:
+	return from.get_held() != self
+
+
 static func search_entity(at: Vector2i) -> Entity:
+	assert(at != INVALID_TILE)
 	return _entity_positions.get(at, null)
 
 
 static func search_around(entity: Entity) -> Array[Entity]:
+	assert(entity.is_map_position_valid())
+
 	var ret := [] as Array[Entity]
 
 	for dir: Vector2i in [
@@ -166,3 +181,9 @@ static func search_around(entity: Entity) -> Array[Entity]:
 			ret.push_back(found_entity)
 
 	return ret
+
+
+func remove() -> void:
+	_entity_positions.erase(_map_position)
+	_entities_tilemap.erase_cell(_map_position)
+	_map_position = Entity.INVALID_TILE

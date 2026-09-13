@@ -1,10 +1,10 @@
 class_name SelectionMenu
 extends MarginContainer
 
+signal selected(item: MenuItem)
+
 const ITEM := preload("res://src/ui/menu_item.tscn")
 const MAX_ITEMS := 8
-
-signal selected(item: MenuItem)
 
 @export var prompt := "Where?":
 	set = set_prompt
