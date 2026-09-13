@@ -3,7 +3,7 @@ extends MarginContainer
 
 signal selected(item: MenuItem)
 
-@onready var item_name: Label = %ItemName
+@onready var item_name_label: Label = %ItemName
 @onready var item_texture: TextureRect = %ItemTexture
 
 var payload
@@ -23,7 +23,7 @@ func setup(texture: Texture2D, text: String, payload: Variant) -> void:
 		assert(is_instance_valid(payload))
 
 	item_texture.texture = texture
-	item_name.text = text
+	item_name_label.text = text
 
 	self.payload = payload
 

@@ -34,8 +34,13 @@ func add_item(texture: Texture2D, text: String, payload: Variant) -> MenuItem:
 	assert(_get_menu_items().size() <= MAX_ITEMS - 1)
 
 	var item: MenuItem = ITEM.instantiate()
-	item.setup(texture, text, payload)
 	%SelectionContainer.add_child(item)
+	var setup := item.setup.bind(texture, text, payload)
+	if not item.is_node_ready():
+		item.ready.connect(setup)
+	else:
+		setup.call()
+	item.setup(texture, text, payload)
 	item.selected.connect(_on_item_selected)
 
 	_update_focus()
@@ -70,7 +75,15 @@ func _update_focus() -> void:
 
 func _get_menu_items() -> Array[MenuItem]:
 	assert(%SelectionContainer.get_children().size() >= 2)
-	return %SelectionContainer.get_children().slice(2)
+
+	var ami: Array[MenuItem] = []
+	var a: Array = %SelectionContainer.get_children().slice(2)
+	if a.size() == 0:
+		return ami
+
+	ami.append_array(a)
+
+	return ami
 
 
 func _on_item_selected(item: MenuItem) -> void:

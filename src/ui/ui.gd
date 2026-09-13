@@ -14,7 +14,7 @@ func popup(menu: SelectionMenu) -> void:
 		m.hide()
 
 	menu.show()
-	menu.selected.connect(func():
+	menu.selected.connect(func(_ignore):
 		$BaseUI.mouse_behavior_recursive = MOUSE_BEHAVIOR_INHERITED
 		$BaseUI.focus_behavior_recursive = FOCUS_BEHAVIOR_INHERITED
 		%SelectionMenus.hide())

@@ -27,7 +27,17 @@ entities_tilemap_path = NodePath("../../TileMaps/Entities")
 [node name="Potion" type="Node" parent="Entities" unique_id=514619248]
 script = ExtResource("3_jy0de")
 sprite = 6
+entity_name = "Potion"
 spawn_position = NodePath("../../EntitySpawnPositions/PotionSpawn")
+walls_tilemap_path = NodePath("../../TileMaps/Walls")
+entities_tilemap_path = NodePath("../../TileMaps/Entities")
+metadata/_custom_type_script = "uid://bvcyoqjkn5dn6"
+
+[node name="Potion2" type="Node" parent="Entities" unique_id=1330396068]
+script = ExtResource("3_jy0de")
+sprite = 6
+entity_name = "Potion"
+spawn_position = NodePath("../../EntitySpawnPositions/PotionSpawn2")
 walls_tilemap_path = NodePath("../../TileMaps/Walls")
 entities_tilemap_path = NodePath("../../TileMaps/Entities")
 metadata/_custom_type_script = "uid://bvcyoqjkn5dn6"
@@ -74,7 +84,14 @@ vframes = 11
 frame = 20
 
 [node name="PotionSpawn" type="Sprite2D" parent="EntitySpawnPositions" unique_id=956454065]
-position = Vector2(496, 322)
+position = Vector2(483, 315)
+texture = ExtResource("7_gpwag")
+hframes = 16
+vframes = 11
+frame = 135
+
+[node name="PotionSpawn2" type="Sprite2D" parent="EntitySpawnPositions" unique_id=1665308812]
+position = Vector2(492, 316)
 texture = ExtResource("7_gpwag")
 hframes = 16
 vframes = 11
@@ -84,3 +101,4 @@ frame = 135
 
 [node name="UI" parent="CanvasLayer" unique_id=629128274 instance=ExtResource("8_7jnl6")]
 unique_name_in_owner = true
+metadata/_edit_lock_ = true

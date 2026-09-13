@@ -24,8 +24,8 @@ func _update_input_labels() -> void:
 	var kiss_text := kiss_event.as_text().to_upper().rstrip(" - PHYSICAL")
 	var oroboros_text := oroboros_event.as_text().to_upper().rstrip(" - PHYSICAL")
 
-	%TakeMenuItem.item_name.text = %TakeMenuItem.item_name.text % take_text
-	%TalkMenuItem.item_name.text = %TalkMenuItem.item_name.text % talk_text
-	%InspectMenuItem.item_name.text = %InspectMenuItem.item_name.text % inspect_text
-	%KissMenuItem.item_name.text = %KissMenuItem.item_name.text % kiss_text
-	%OroborosMenuItem.item_name.text = %OroborosMenuItem.item_name.text % oroboros_text
+	%TakeMenuItem.item_name_label.text = %TakeMenuItem.item_name_label.text % take_text
+	%TalkMenuItem.item_name_label.text = %TalkMenuItem.item_name_label.text % talk_text
+	%InspectMenuItem.item_name_label.text = %InspectMenuItem.item_name_label.text % inspect_text
+	%KissMenuItem.item_name_label.text = %KissMenuItem.item_name_label.text % kiss_text
+	%OroborosMenuItem.item_name_label.text = %OroborosMenuItem.item_name_label.text % oroboros_text

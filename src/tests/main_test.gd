@@ -19,6 +19,7 @@ func on_request_holding(by: HoldingAttribute) -> void:
 
 	%UI.entity_menu.clear()
 	for entity: Entity in holdable_entities:
-		%UI.entity_menu.add_entity(entity)
-	%UI.entity_menu.selected.connect(by.hold, CONNECT_ONE_SHOT)
+		%UI.entity_menu.add_entity_surrounding(entity, %Player)
+	var hold := func(m: MenuItem): by.hold(m.payload)
+	%UI.entity_menu.selected.connect(hold, CONNECT_ONE_SHOT)
 	%UI.popup(%UI.entity_menu)
