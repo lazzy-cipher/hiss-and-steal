@@ -13,5 +13,13 @@ func _ready():
 	%Holding.initialize(get_node(_held_entities_tilemap_path))
 	%CameraFollow.initialize(get_node(_camera_path))
 
-	if owner != self and "on_request_holding" in owner:
+	_connect_holding()
+
+
+func _connect_holding() -> void:
+	if owner == self:
+		return
+	if "on_request_holding" in owner:
 		%Holding.holding_requested.connect(owner.on_request_holding)
+	if "on_request_dropping" in owner:
+		%Holding.dropping_requested.connect(owner.on_request_dropping)

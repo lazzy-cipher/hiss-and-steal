@@ -196,7 +196,7 @@ material = SubResource("ShaderMaterial_7xkrl")
 texture = SubResource("AtlasTexture_3eocg")
 
 [node name="ItemName" parent="MarginContainer/HBoxContainer/VBoxContainer4/OroborosMenuItem/HBoxContainer" parent_id_path=PackedInt32Array(1914293139, 622127893) index="2" unique_id=1128317353]
-text = "(%s) Oroboros"
+text = "(%s) Ouroboros"
 
 [node name="VSeparator4" type="VSeparator" parent="MarginContainer/HBoxContainer" unique_id=2098246192]
 layout_mode = 2

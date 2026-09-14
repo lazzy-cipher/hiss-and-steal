@@ -46,6 +46,46 @@ resource_local_to_scene = true
 atlas = ExtResource("5_0ianu")
 region = Rect2(24, 48, 8, 8)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p1rv4"]
+resource_local_to_scene = true
+shader = ExtResource("4_imvvr")
+shader_parameter/rotation = 180
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry3cy"]
+resource_local_to_scene = true
+atlas = ExtResource("5_0ianu")
+region = Rect2(8, 80, 8, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7cxw"]
+resource_local_to_scene = true
+shader = ExtResource("4_imvvr")
+shader_parameter/rotation = 270
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ishge"]
+resource_local_to_scene = true
+atlas = ExtResource("5_0ianu")
+region = Rect2(8, 80, 8, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_prphf"]
+resource_local_to_scene = true
+shader = ExtResource("4_imvvr")
+shader_parameter/rotation = 90
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e76rx"]
+resource_local_to_scene = true
+atlas = ExtResource("5_0ianu")
+region = Rect2(8, 80, 8, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ptj17"]
+resource_local_to_scene = true
+shader = ExtResource("4_imvvr")
+shader_parameter/rotation = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ri2pi"]
+resource_local_to_scene = true
+atlas = ExtResource("5_0ianu")
+region = Rect2(8, 80, 8, 8)
+
 [node name="DirectionMenu" unique_id=962631880 instance=ExtResource("1_7b3jd")]
 script = ExtResource("2_aqflq")
 
@@ -96,7 +136,55 @@ texture = SubResource("AtlasTexture_3mobe")
 [node name="ItemName" parent="MarginContainer/SelectionContainer/Right/HBoxContainer" parent_id_path=PackedInt32Array(2139034632, 622127893) index="2" unique_id=1128317353]
 text = "Right"
 
+[node name="UpLeft" parent="MarginContainer/SelectionContainer" parent_id_path=PackedInt32Array(1971558996) index="6" unique_id=345809930 instance=ExtResource("3_xheew")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ItemTexture" parent="MarginContainer/SelectionContainer/UpLeft/HBoxContainer" parent_id_path=PackedInt32Array(345809930, 622127893) index="0" unique_id=767362753]
+material = SubResource("ShaderMaterial_p1rv4")
+texture = SubResource("AtlasTexture_ry3cy")
+
+[node name="ItemName" parent="MarginContainer/SelectionContainer/UpLeft/HBoxContainer" parent_id_path=PackedInt32Array(345809930, 622127893) index="2" unique_id=1128317353]
+text = "Up Left"
+
+[node name="UpRight" parent="MarginContainer/SelectionContainer" parent_id_path=PackedInt32Array(1971558996) index="7" unique_id=2098546695 instance=ExtResource("3_xheew")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ItemTexture" parent="MarginContainer/SelectionContainer/UpRight/HBoxContainer" parent_id_path=PackedInt32Array(2098546695, 622127893) index="0" unique_id=767362753]
+material = SubResource("ShaderMaterial_k7cxw")
+texture = SubResource("AtlasTexture_ishge")
+
+[node name="ItemName" parent="MarginContainer/SelectionContainer/UpRight/HBoxContainer" parent_id_path=PackedInt32Array(2098546695, 622127893) index="2" unique_id=1128317353]
+text = "Up Right"
+
+[node name="DownLeft" parent="MarginContainer/SelectionContainer" parent_id_path=PackedInt32Array(1971558996) index="8" unique_id=1360848959 instance=ExtResource("3_xheew")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ItemTexture" parent="MarginContainer/SelectionContainer/DownLeft/HBoxContainer" parent_id_path=PackedInt32Array(1360848959, 622127893) index="0" unique_id=767362753]
+material = SubResource("ShaderMaterial_prphf")
+texture = SubResource("AtlasTexture_e76rx")
+
+[node name="ItemName" parent="MarginContainer/SelectionContainer/DownLeft/HBoxContainer" parent_id_path=PackedInt32Array(1360848959, 622127893) index="2" unique_id=1128317353]
+text = "Down Left"
+
+[node name="DownRight" parent="MarginContainer/SelectionContainer" parent_id_path=PackedInt32Array(1971558996) index="9" unique_id=455733783 instance=ExtResource("3_xheew")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ItemTexture" parent="MarginContainer/SelectionContainer/DownRight/HBoxContainer" parent_id_path=PackedInt32Array(455733783, 622127893) index="0" unique_id=767362753]
+material = SubResource("ShaderMaterial_ptj17")
+texture = SubResource("AtlasTexture_ri2pi")
+
+[node name="ItemName" parent="MarginContainer/SelectionContainer/DownRight/HBoxContainer" parent_id_path=PackedInt32Array(455733783, 622127893) index="2" unique_id=1128317353]
+text = "Down Right"
+
 [editable path="MarginContainer/SelectionContainer/Up"]
 [editable path="MarginContainer/SelectionContainer/Down"]
 [editable path="MarginContainer/SelectionContainer/Left"]
 [editable path="MarginContainer/SelectionContainer/Right"]
+[editable path="MarginContainer/SelectionContainer/UpLeft"]
+[editable path="MarginContainer/SelectionContainer/UpRight"]
+[editable path="MarginContainer/SelectionContainer/DownLeft"]
+[editable path="MarginContainer/SelectionContainer/DownRight"]

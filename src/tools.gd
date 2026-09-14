@@ -3,6 +3,16 @@ extends Node
 
 const ATLAS := preload("res://assets/images/kenney_micro-roguelike/Tilemap/colored_tilemap_packed.png")
 const ATLAS_CELL_SIZE := Vector2(8.0, 8.0)
+const ALL_DIRECTIONS := [
+	Vector2i.UP,
+	Vector2i.DOWN,
+	Vector2i.LEFT,
+	Vector2i.RIGHT,
+	Vector2i.UP + Vector2i.LEFT,
+	Vector2i.UP + Vector2i.RIGHT,
+	Vector2i.DOWN + Vector2i.LEFT,
+	Vector2i.DOWN + Vector2i.RIGHT,
+]
 
 ## Wrapper around [code]get_tree().create_timer(time, false).timeout[/code].
 func wait(time: float) -> Signal:

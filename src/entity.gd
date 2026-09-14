@@ -104,18 +104,24 @@ func map_to_world_position(map_pos: Vector2i) -> Vector2:
 func set_map_position(new_map_pos: Vector2i) -> bool:
 	var old_map_pos := _map_position
 
-	if _entities_tilemap.get_cell_source_id(new_map_pos) != -1:
-		return _try_slide(new_map_pos - old_map_pos)
-	if _walls_tilemap.get_cell_source_id(new_map_pos) != -1:
+	if not is_map_position_empty(new_map_pos):
 		return _try_slide(new_map_pos - old_map_pos)
 
+	return _set_map_position_internal(new_map_pos, old_map_pos)
+
+
+func set_map_position_no_sliding(new_map_pos: Vector2i) -> bool:
+	var old_map_pos := _map_position
+	return _set_map_position_internal(new_map_pos, old_map_pos)
+
+
+func _set_map_position_internal(new_map_pos: Vector2i, old_map_pos: Vector2i) -> bool:
 	_entities_tilemap.erase_cell(old_map_pos)
 	_entities_tilemap.set_cell(
 		new_map_pos,
 		TILEMAP_SOURCE_ID,
 		sprite_coords[sprite],
 	)
-
 
 	_map_position = new_map_pos
 
@@ -130,6 +136,7 @@ func set_map_position(new_map_pos: Vector2i) -> bool:
 	return true
 
 
+
 func _try_slide(dir: Vector2i) -> bool:
 	if dir.x == 0 or dir.y == 0:
 		return false
@@ -139,6 +146,11 @@ func _try_slide(dir: Vector2i) -> bool:
 
 	return set_map_position(_map_position + test_1)\
 		or set_map_position(_map_position + test_2)
+
+
+func is_map_position_empty(map_pos: Vector2i) -> bool:
+	return _entities_tilemap.get_cell_source_id(map_pos) == -1\
+		and _walls_tilemap.get_cell_source_id(map_pos) == -1
 
 
 func is_map_position_valid() -> bool:
@@ -151,6 +163,7 @@ func interact(_from: Entity, _interaction := {}) -> void:
 
 @warning_ignore("unused_parameter")
 func request_holding(from: HoldingAttribute) -> bool:
+	assert(is_instance_valid(from))
 	return from.get_held() != self
 
 
@@ -159,26 +172,33 @@ static func search_entity(at: Vector2i) -> Entity:
 	return _entity_positions.get(at, null)
 
 
-static func search_around(entity: Entity) -> Array[Entity]:
+static func search_entities_around(entity: Entity) -> Array[Entity]:
+	assert(is_instance_valid(entity))
 	assert(entity.is_map_position_valid())
 
 	var ret := [] as Array[Entity]
 
-	for dir: Vector2i in [
-		Vector2i.UP,
-		Vector2i.DOWN,
-		Vector2i.LEFT,
-		Vector2i.RIGHT,
-		Vector2i.UP + Vector2i.LEFT,
-		Vector2i.UP + Vector2i.RIGHT,
-		Vector2i.DOWN + Vector2i.LEFT,
-		Vector2i.DOWN + Vector2i.RIGHT,
-	]:
+	for dir: Vector2i in Tools.ALL_DIRECTIONS:
 		var search_pos := entity.get_map_position() + dir
 		var found_entity := search_entity(search_pos)
 		if found_entity != null:
 			assert(is_instance_valid(found_entity))
 			ret.push_back(found_entity)
+
+	return ret
+
+
+## Returns an array of directions towards empty map positions.
+static func search_empty_around(entity: Entity) -> Array[Vector2i]:
+	assert(is_instance_valid(entity))
+	assert(entity.is_map_position_valid())
+
+	var ret := [] as Array[Vector2i]
+
+	for dir: Vector2i in Tools.ALL_DIRECTIONS:
+		var search_pos := entity.get_map_position() + dir
+		if entity.is_map_position_empty(search_pos):
+			ret.push_back(dir)
 
 	return ret
 

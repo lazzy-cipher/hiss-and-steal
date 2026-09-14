@@ -49,6 +49,7 @@ func add_item(texture: Texture2D, text: String, payload: Variant) -> MenuItem:
 
 
 func set_prompt(p: String) -> void:
+	%Prompt.text = p
 	prompt = p
 
 
@@ -73,6 +74,7 @@ func _update_focus() -> void:
 			item.focus_neighbor_bottom = items[i + 1].get_path()
 
 
+## Return every visible menu element
 func _get_menu_items() -> Array[MenuItem]:
 	assert(%SelectionContainer.get_children().size() >= 2)
 
@@ -82,8 +84,7 @@ func _get_menu_items() -> Array[MenuItem]:
 		return ami
 
 	ami.append_array(a)
-
-	return ami
+	return ami.filter(func(c: Control): return c.visible)
 
 
 func _on_item_selected(item: MenuItem) -> void:
